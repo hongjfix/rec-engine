@@ -8,7 +8,6 @@ public class RecEngineApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RecEngineApplication.class, args);
-		System.out.println("hello");
 	}
 
 }
