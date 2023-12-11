@@ -23,5 +23,5 @@ components:
       properties:
         itemId:
           type: string
-        itemName:
-          type: string
+        score:
+          type: double
