@@ -39,11 +39,13 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved the list"),
     })
     public List<Item> getUserList(@RequestParam String userId) {
+        List<Item> resList = new ArrayList<>();
         List<String> itemList = new ArrayList<>();
         List<Double> scoreList = new ArrayList<>();
         try {
             //recall
             itemList = recallService.getAllCandidates("all");
+            System.out.println("itemList: " + itemList.toString());
 
             //get features
             List<String> userFeatures = featureService.getUserFeatures(userId);
@@ -56,11 +58,15 @@ public class UserController {
             //rank
             scoreList = rankService.batchInference(featureSets);
             System.out.println(scoreList);
+
+            resList = createItemList(new ArrayList<>(itemFeatures.keySet()), scoreList);
             } catch (Exception e) {
                 System.out.println(e);
                 return new ArrayList<>();
         }
-        return createItemList(itemList, scoreList);
+        System.out.println("resList: " + resList.toString());
+
+        return resList;
     }
 
     private List<Item> createItemList(List<String> itemIdList, List<Double> scoreList) {
